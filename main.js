@@ -74,6 +74,9 @@ function startDrag(e) {
             // if the user didn't like or dislike the card, reset the card to its initial position
             actualCard.classList.add('reset')
             actualCard.classList.remove('go-right', 'go-left')
+            actualCard.querySelectorAll('.choice').forEach(choice => {
+                choice.style.opacity = 0
+            })
         }
 
         // reset the variables
