@@ -8,6 +8,8 @@ function startDrag(e) {
     // get the first article element
     const actualCard = e.target.closest('article')
 
+    if(!actualCard) return
+
     // get initial position of mouse or finger
     const startX = e.pageX ?? e.touches[0].pageX
     
@@ -37,7 +39,15 @@ function startDrag(e) {
         // change the cursor to grabbing
         actualCard.style.cursor = 'grabbing';
 
-        console.log(pullDeltaX)
+        // change opacity of the choice info
+        const opacity = Math.abs(pullDeltaX) / 100
+        const isRight = pullDeltaX > 0
+
+        const choiceEl = isRight
+          ? actualCard.querySelector('.choice.like')
+          : actualCard.querySelector('.choice.nope')
+
+        choiceEl.style.opacity = opacity
     }
     
     function onEnd(event) {
@@ -73,6 +83,7 @@ function startDrag(e) {
 
             pullDeltaX = 0
             isAnimating = false
+
         })
         
     }
