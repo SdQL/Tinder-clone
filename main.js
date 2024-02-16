@@ -1,5 +1,6 @@
 let isAnimating = false
 let pullDeltaX = 0 // distancia que la card que se está arrastrando
+const DECISION_THRESHOLD = 150 // distancia que se debe arrastrar la card para tomar una decisión   
 
 function startDrag(e) {
     if(isAnimating) return
@@ -46,7 +47,33 @@ function startDrag(e) {
 
         document.removeEventListener('touchmove', onMove);
         document.removeEventListener('touchend', onEnd);
+        
+        // know if the user liked or disliked the card
+        const decisionMade = Math.abs(pullDeltaX) >= DECISION_THRESHOLD
 
+        // if the user liked or disliked the card, animate it out
+        if(decisionMade) {
+            const goRight = pullDeltaX > 0
+            const goLeft = !goRight
+
+            actualCard.classList.add(goRight ? 'go-right' : 'go-left')
+            actualCard.removeEventListener('transitionend', () => {
+                actualCard.remove()
+            })
+        } else {
+            // if the user didn't like or dislike the card, reset the card to its initial position
+            actualCard.classList.add('reset')
+            actualCard.classList.remove('go-right', 'go-left')
+        }
+
+        // reset the variables
+        actualCard.addEventListener('transitionend', () => {
+            actualCard.removeAttribute('style')
+            actualCard.classList.remove('reset')
+
+            pullDeltaX = 0
+            isAnimating = false
+        })
         
     }
     
