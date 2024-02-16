@@ -56,10 +56,42 @@ footer {
     align-items: center;
 
     & button {
+        background: url('img/tinder-icons.webp') no-repeat;
+        background-position: 0px 0px;
+        background-size: 175px;
         height: 32px;
         width: 32px;
         border-radius: 58%;
-        border: 1px solid #ccc;
+        border: 0;
+        cursor: pointer;
+        transition: scale .3s ease;
+
+        &:hover {
+            scale: 1.4;
+        }
+
+        &.is-big {
+            background-size: 250px;
+            width: 48px;
+            height: 48px;
+        }
+
+        &.is-undo {
+            background-position: -140px;
+        }
+
+        &.is-remove {
+            background-position: -150px;
+        }
+
+        &.is-fav {
+            background-position: -50px;
+        
+        }
+
+        &.is-star {
+            background-position: -70px;
+        }
     }
 }
 
@@ -71,6 +103,7 @@ footer {
 
     & article {
         border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .3);
         cursor: grab;
         overflow: hidden;
         position: absolute;
@@ -78,7 +111,6 @@ footer {
         width: 100%;
         height: 100%;
         z-index: 2;
-        will-change: transform rotate;
     }
 
     & img {
@@ -86,6 +118,29 @@ footer {
         height: 100%;
         object-fit: cover;
     }
+
+    & h2 {
+        color: white;
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: flex-end;
+        height: 100%;
+        width: 100%;
+        padding: 16px;
+        z-index: 3;
+        background: linear-gradient(
+            to top, 
+            #00000088 20%, 
+            transparent 40%);
+    }
+
+    & span {
+        margin-left: 4px;
+        font-size: 18px;
+        line-height: 1.4;
+        font-weight: 400
+    };
 
 
 }
